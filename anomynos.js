@@ -6,3 +6,7 @@
  setTimeout(a, 2000);
  a();
  console.log("bye");
+
+ setTimeout(function(){
+    console.log("function");
+ },3000);
