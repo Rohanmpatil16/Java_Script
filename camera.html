@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camera Frame Logger</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f0f2f5;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        video {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 8px;
+            background-color: #000;
+            transform: scaleX(-1); /* Mirrors the camera for a more natural preview */
+        }
+        .status {
+            margin-top: 12px;
+            font-weight: 500;
+            color: #65676b;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Camera Feed</h2>
+    <video id="webcam" autoplay playsinline></video>
+    <div id="status" class="status">Requesting camera access...</div>
+</div>
+
+<script>
+    const video = document.getElementById('webcam');
+    const statusDiv = document.getElementById('status');
+
+    async function initCamera() {
+        try {
+            // Request video-only access from the user's device
+            const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+            
+            // Link the camera stream to our video element
+            video.srcObject = stream;
+            
+            statusDiv.textContent = "Camera active. Check your browser console (F12) to see logs!";
+            statusDiv.style.color = "#008a00";
+
+            // Start logging "captured frame" every 100 milliseconds
+            setInterval(() => {
+                console.log("captured frame");
+            }, 100);
+
+        } catch (error) {
+            console.error("Error accessing the camera: ", error);
+            statusDiv.textContent = "Camera access denied or unavailable.";
+            statusDiv.style.color = "#de350b";
+        }
+    }
+
+    // Run the function when the page loads
+    initCamera();
+</script>
+
+</body>
+</html>
