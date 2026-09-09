@@ -16,5 +16,4 @@ function findSecondLargest(numbers) {
 }
 
 console.log(findSecondLargest([10, 25, 7, 45, 18]));
-console.log(findSecondLargest([5, 2, 9, 1, 20]));
-console.log(findSecondLargest([100, 50, 80, 30]));
+

@@ -1,18 +1,19 @@
 function countFrequency(numbers) {
-    let frequency = {};
+    let frequency = new Map();
 
-    for (let i = 0; i < numbers.length; i++) {
-        let num = numbers[i];
-
-        if (frequency[num]) {
-            frequency[num]++;
+    for (let num of numbers) {
+        if (frequency.has(num)) {
+            frequency.set(num, frequency.get(num) + 1);
         } else {
-            frequency[num] = 1;
+            frequency.set(num, 1);
         }
     }
 
     return frequency;
 }
 
-console.log(countFrequency([1, 2, 2, 3, 3, 3, 4]));
-console.log(countFrequency([10, 10, 20, 20, 20, 30]));
+let result = countFrequency([1, 2, 2, 3, 3, 3, 4, 4]);
+
+console.log(result);
+console.log(result.get(3));
+console.log(result.get(4));
